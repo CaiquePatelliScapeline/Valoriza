@@ -14,6 +14,7 @@ const authenticateUserController = new AuthenticateUserController();
 
 router.post("/users", createUserController.handle); //Criação de usuario
 router.post("/tags", ensureAdmin, createTagController.handle); //Criação de tag
+router.post("/compliments", createComplimentController.handle); //Criação de elogio
 router.post("/login", authenticateUserController.handle); //Autenticação do usuário
 
 export {router};
