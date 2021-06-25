@@ -7,7 +7,9 @@ import { ListTagController } from "./controllers/ListTagController";
 import { ListUserReceiverComplimentsController } from "./controllers/ListUserReceiverComplimentsController";
 import { ListUsersController } from "./controllers/ListUsersController";
 import { ListUserSenderComplimentsController } from "./controllers/ListUserSenderComplimentsController";
+
 import { ensureAdmin } from "./middlewares/ensureAdmin";
+import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 
 const router = Router();
 
@@ -21,8 +23,8 @@ const listUsersController = new ListUsersController();
 const authenticateUserController = new AuthenticateUserController();
 
 router.post("/users", createUserController.handle); //Criação de usuario
-router.post("/tags", ensureAdmin, createTagController.handle); //Criação de tag
-router.post("/compliments", createComplimentController.handle); //Criação de elogio
+router.post("/tags", ensureAuthenticated, ensureAdmin, createTagController.handle); //Criação de tag
+router.post("/compliments", ensureAuthenticated, createComplimentController.handle); //Criação de elogio
 router.post("/login", authenticateUserController.handle); //Autenticação do usuário
 
 router.get("/users/compliments/send", ensureAuthenticated, listUserSenderComplimentsController.handle);  //Listar compliments que o usuário fez
