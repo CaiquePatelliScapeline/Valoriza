@@ -1,11 +1,13 @@
 import "reflect-metadata";         //Banco de dados
 import express, { NextFunction, Request, Response } from "express";     //Server
 import "express-async-errors";
+import cors from "cors";
 
 import { router } from "./routes"; //Rotas
 import "./database"; //Conexão com o banco de dados
 
-const app = express(); //Iniciar o servidor utilizando o express 
+const app = express(); //Iniciar o servidor utilizando o express
+app.use(cors()); //Habilita que aplicações front-end acessem a API, é possivel restringir as fontes usano o atributo origin
 
 app.use(express.json()); //Define que os route parms serão do tipo .json
 app.use(router); //Implementar rotas
